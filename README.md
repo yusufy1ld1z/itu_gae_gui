@@ -6,8 +6,9 @@ It is a PyQt5 GUI integrated with ROS2 for Autonomous II.
 - ROS2
 
 ## Usage
-Simply use the command line prompt
+First source the ROS2 then simply use the command line prompt.
 ```bash
+source /opt/ros/[your distro]/setup.bash 
 python3 AutonomousII_python.py
 ```
 ## License
