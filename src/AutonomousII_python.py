@@ -1083,7 +1083,7 @@ class Ui_Util(Node):
             self.ui.label_3_mode_2.setText("RPM")
 
 
-class ErrorThread(QThread):
+class ErrorThread(QObject):
     error_signal = pyqtSignal(str, QtWidgets.QCheckBox, str)
 
     def __init__(self, name, checkBox, obj):
@@ -1091,6 +1091,7 @@ class ErrorThread(QThread):
         self.name = name
         self.checkBox = checkBox
         self.object = obj
+        self.run()
 
     def run(self):
         process_state = True
@@ -1099,8 +1100,7 @@ class ErrorThread(QThread):
             time.sleep(0.5)
             process_state = psutil.pid_exists(self.object.pid)
 
-        if not process_state:
-            self.error_signal.emit(self.name, self.checkBox, self.object.stderr.read())
+        self.error_signal.emit(self.name, self.checkBox, self.object.stderr.read())
 
 
 def ROS(obj):
